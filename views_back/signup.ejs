@@ -1,0 +1,26 @@
+<!-- When signing up the user MUST provide a first name, last name, username, email and a password to POST '/signup' method. An error page will be opened in case all 5 are not given -->
+
+ <h1>Sign Up</h1>
+ <form action="/signup"  method="post">
+  <div class="container">
+    <label><b>First name</b></label>
+    <input type="text" placeholder="Enter first name" name="firstName" required>
+
+    <label><b>Last name</b></label>
+    <input type="text" placeholder="Enter last name" name="lastName" required>
+
+    <label><b>Email</b></label>
+    <input type="text" placeholder="Enter Email" name="email" required>
+
+    <label><b>Username</b></label>
+    <input type="username" placeholder="Enter Username" name="username" required>
+
+    <label><b>Password</b></label>
+    <input type="password" placeholder="Enter Password" name="password" required>
+
+    <div class="clearfix">
+      <button type="button"  class="cancelbtn">Cancel</button>
+      <button type="submit" class="signupbtn">Sign Up</button>
+    </div>
+  </div>
+</form>
