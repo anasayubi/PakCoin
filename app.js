@@ -22,6 +22,10 @@ app.use(bodyParser.urlencoded({
   extended: true
 }))
 
+// Initialise static routes
+var staticPath = path.join(__dirname, "static")
+app.use(express.static(staticPath))
+
 // Initialise routing
 app.get('/', function(req, res, next){
     // If user in session then show profile
