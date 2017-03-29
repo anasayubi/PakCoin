@@ -1,7 +1,9 @@
 var express = require('express')
 var path = require('path')
 var bodyParser = require('body-parser')
-var session = require('express-session')  
+var session = require('express-session')
+// Coinbase client for accessing accounts/wallets
+var Client = require('coinbase').Client; 
 // Import User model
 var User = require("./models/user")
 
@@ -16,6 +18,11 @@ app.use(session({
     resave: true,
     saveUninitialized: true
 }))
+// Initialise coinbase client with registered account
+var client = new Client({
+  'apiKey': 'IkOPOzwEX3OzXZXv',
+  'apiSecret': 'MjlKlGePwIXMG6mgI4vmOiZ7NLD6avLG',
+});
 
 // Parse body before any post requests
 app.use(bodyParser.urlencoded({
@@ -75,25 +82,30 @@ app.post('/signup', function(req, res, next){
         res.redirect('/')
     // Otherwise if a user is not in session
     else{
-        // Create a new user based on submitted form details
-        var newUser = User({
-            firstName: req.body.firstName,
-            lastName: req.body.lastName,
-            username: req.body.username.toLowerCase(),
-            email: req.body.email.toLowerCase(),
-            password: req.body.password,
-            // GOTO: use some encoder for this
-            currPublicKey: '12345'
-        })
-        // Save the new input user. If err occurs then pass to error handling middleware
-        newUser.save(function(err, user, numAffected){
-            if(err) // GOTO: must return error (not to signup.ejs but to index through AJAX)
-                next(err)
-            else{
-                // GOTO: must go to profile page 
-                req.session.user = req.body
-                res.redirect('/')
-            }
+        // Create a new account on coinbase
+        client.createAccount({name: req.body.username.toLowerCase()}, function(err, account) {
+            // console.log(account)
+            // console.log(account.id)
+            // console.log(typeof(req.body.password))
+            // Create a new user based on submitted form details
+            var newUser = User({
+                firstName: req.body.firstName,
+                lastName: req.body.lastName,
+                username: req.body.username.toLowerCase(),
+                email: req.body.email.toLowerCase(),
+                password: req.body.password,
+                coinbaseid: account.id 
+            })
+            // Save the new input user. If err occurs then pass to error handling middleware
+            newUser.save(function(err, user, numAffected){
+                if(err) // GOTO: must return error (not to signup.ejs but to index through AJAX)
+                    next(err)
+                else{
+                    // GOTO: must go to profile page 
+                    req.session.user = req.body
+                    res.redirect('/')
+                }
+            })
         })
     } 
 })

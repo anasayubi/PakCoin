@@ -9,7 +9,7 @@ var transactionSchema = mongoose.Schema({
     dateTime: {type: Date, 'default': Date.now},
     amount: {type: Number, required: true} 
 })
-
+ 
 var userSchema = mongoose.Schema({
     // RegExp picked up online. Numbers should not be allowed 
     firstName: {type: String, match: /^[a-z ,.'-]+$/i, required: true},
@@ -24,11 +24,9 @@ var userSchema = mongoose.Schema({
     password: { type: String, required: true, match: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/ },
     bitcoinVal: {type: Number, 'default': 0},
     createdAt: { type: Date, 'default': Date.now },
-    // GOTO: Make this unique when bitcoin API used
-    currPublicKey: {type: String, required: true},
-    // currPublicKey will be included in publicKeys
-    publicKeys: [String],
-    transactions: [transactionSchema]
+    // Coinbase ID that will be used to access user wallet
+    // Each user will have his/her own ID
+    coinbaseid: {type: String, required: true, unique: true}
 })
 
 userSchema.methods.checkPassword = function(guess, done) {
