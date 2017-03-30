@@ -2,10 +2,10 @@ var express = require('express')
 var path = require('path')
 var bodyParser = require('body-parser')
 var session = require('express-session')
-// Coinbase client for accessing accounts/wallets
-var Client = require('coinbase').Client; 
 // Import User model
 var User = require("./models/user")
+// Import coinbase client
+var client = require("./coinbase") 
 
 // Initialise application
 var port = 3000
@@ -18,11 +18,6 @@ app.use(session({
     resave: true,
     saveUninitialized: true
 }))
-// Initialise coinbase client with registered account
-var client = new Client({
-  'apiKey': 'IkOPOzwEX3OzXZXv',
-  'apiSecret': 'MjlKlGePwIXMG6mgI4vmOiZ7NLD6avLG',
-});
 
 // Parse body before any post requests
 app.use(bodyParser.urlencoded({
