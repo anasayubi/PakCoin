@@ -4,6 +4,8 @@ var bodyParser = require('body-parser')
 var session = require('express-session')
 // Import User model
 var User = require("./models/user")
+// Import Admin model
+var Admin = require("./models/admin")
 // Import coinbase client
 var client = require("./coinbase") 
 
