@@ -36,8 +36,7 @@ app.get('/', function(req, res, next){
     // Otherwise show index page
     else
         res.render('index')
-})
-// Note: Must be removed in production. Signup will occur from index page 
+}) 
 app.get('/signup',function(req, res, next){
     // If user in session then redirect to '/'
     if(req.session.user)
@@ -45,7 +44,6 @@ app.get('/signup',function(req, res, next){
     else
         res.render('signup')
 })
-// Note: Must be removed in production. Login will occur from index page
 app.get('/login',function(req, res, next){
     // If user in session then redirect to '/'
     if(req.session.user)
@@ -53,7 +51,7 @@ app.get('/login',function(req, res, next){
     else
         res.render('login', {err: null})
 })
-//
+// Allow a user to logout 
 app.get('/logout', function(req, res, next){
     // If user in session
     if(req.session.user){
@@ -68,6 +66,14 @@ app.get('/logout', function(req, res, next){
         //console.error(err.message) 
         next(err)
     }
+})
+app.get('/admin', function(req, res, next){
+    // If a user in session then redirect to '/' (routes to profile page)
+    if(req.session.user)
+        res.redirect('/')
+    // Open admin login page otherwise
+    else
+        res.render('adminLogIn', {err: null})
 })
 // GOTO: More validation procedures must still be added
 // Signup form submission procedure
