@@ -1,14 +1,6 @@
 var mongoose = require("mongoose")
 var bcrypt = require("bcrypt-nodejs")
 var SALT_FACTOR = 10
-
-var transactionSchema = mongoose.Schema({
-    // if 'true' then 'send' transaction, 
-    // if 'false' then 'receieve' transaction
-    'sendReceive': {type: Boolean, required: true},
-    dateTime: {type: Date, 'default': Date.now},
-    amount: {type: Number, required: true} 
-})
  
 var userSchema = mongoose.Schema({
     // RegExp picked up online. Numbers should not be allowed 
