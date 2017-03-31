@@ -112,7 +112,7 @@ app.post('/signup', function(req, res, next){
         })
     } 
 })
-// Login form submission procedure
+// User login form submission procedure
 app.post('/login', function(req, res, next){
     // If user in session then redirect to '/'
     if(req.session.user)
@@ -177,6 +177,16 @@ app.post('/login', function(req, res, next){
                 )
             }
         })
+    }
+})
+// Admin login form submission procedure
+app.post('/admin', function(req, res, next){
+    // If admin is in session then show admin profile
+    if(req.session.admin)
+        res.render('/adminProfile')
+    // Otherwise attempt login
+    else{
+        Admin.findOne({username: req.body.identifier, password: req.body.password})
     }
 })
 // Since request does not match any path then pass to error handling middleware
