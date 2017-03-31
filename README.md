@@ -1,6 +1,6 @@
 # PakCoin
 A light web bitcoin wallet customized for Pakistan-based users. Made with love with Node.js and the [Coinbase API](https://github.com/coinbase/coinbase-node).  
-At the current moment only the manual method of installation is available.
+At the current moment only the manual method of installation is available for linux.
 
 ## Manual Installation
 You must have Node and MongoDB installed to run PakCoin. Clone the source code into the a directory and `cd` into it. (Note: the web app has only been tested with Node v6.10 and MongoDB v3.4)
@@ -18,8 +18,6 @@ To run **PakCoin** follow these instructions:
 5. Run the web server with `npm start`
 
 Congratulations! Your web app is now running at `localhost:3000`. To access PakCoin open your browser to the URL   [`http://localhost:3000/`](http://localhost:3000/)
-
-### Windows
 
 ## URLs
 ### `GET`
