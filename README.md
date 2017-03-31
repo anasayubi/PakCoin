@@ -22,5 +22,11 @@ Congratulations! Your web app is now running at `localhost:3000`. To access PakC
 ### Windows
 
 ## URLs
-
-
+### `GET`
+* `/` - index page **or** user wallet page if in session **or** admin page if in session
+* `/signup` - opens signup page for a user
+* `/login` - opens login page for a user
+* `/logout` - logs out a current session
+### `POST`
+* `/signup` - attempt to log in as an existing user
+* `/login` - attempt to sign up a new user
