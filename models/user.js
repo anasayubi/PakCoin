@@ -18,7 +18,7 @@ var userSchema = mongoose.Schema({
     createdAt: { type: Date, 'default': Date.now },
     // Coinbase ID that will be used to access user wallet
     // Each user will have his/her own ID
-    coinbaseid: {type: String, required: true, unique: true}
+    coinbaseid: String
 })
 
 userSchema.methods.checkPassword = function(guess, done) {
