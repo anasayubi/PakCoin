@@ -187,10 +187,9 @@ app.post('/admin', function(req, res, next){
     // Otherwise attempt login
     else
         Admin.findOne({username: req.body.identifier, password: req.body.password}, function(err, admin){
-            User.find(function(err, documents){
-                console.log(documents)
+            User.find(function(err, users){
+                res.render('admin', {users: users})
             })
-            res.render('admin')
         })
 })
 // Since request does not match any path then pass to error handling middleware
