@@ -1,16 +1,15 @@
-<!-- When signing up the user MUST provide a first name, last name, username, email and a password to POST '/signup' method. An error page will be opened in case all 5 are not given -->
+<!-- When signing up the user MUST provide a either a username or email and a password to POST '/login' method. An error page will be opened in case all 2 are not given -->
+<!-- error passed back in variable 'err' -->
 
-<!DOCTYPE html>
-<html>
 <head>
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="description" content="PakCoin - A light weight bitcoin app.">
+    <meta name="author" content="AnasAyubi">
 
-    <title>Sign Up</title>
+    <title>Log In</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -44,16 +43,24 @@
     <script src="js/cryptowallet.min.js"></script>
 
 </head>
-<body>
-<div class="container">
-        <div id="signupbox" style="display:none; margin-top:50px" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-                    <div class="panel panel-info">
-                        <div class="panel-heading">
-                            <div class="panel-title">Sign Up</div>
-                            <div style="float:right; font-size:100%;font-weight:bold; position: relative; top:-23px"><a id="signinlink" href="login" >Sign In</a></div>
-                        </div>  
-                        <div class="panel-body" >
-                            <form id="signupform" method="post" action="\signup" class="form-horizontal" role="form">
+
+
+
+<div class="container">    
+        <div id="loginbox" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">                    
+            <div class="panel panel-info" >
+                    <div class="panel-heading">
+                        <div class="panel-title">Log In</div>
+                        <!-- <div style="float:right; font-size: 80%; position: relative; top:-10px"><a href="#">Forgot password?</a></div> -->
+
+                    </div>     
+
+                    <div style="padding-top:30px" class="panel-body" >
+
+                        <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
+                            
+                             
+                        <form id="signupform" method="post" action="\signup" class="form-horizontal" role="form">
                                 
                                 <div id="signupalert" style="display:none" class="alert alert-danger">
                                     <p>Error:</p>
@@ -116,32 +123,17 @@
                                 
                                 
                             </form>
-                         </div>
-                    </div>
 
-               
-               
+
+                        </div>                     
+                    </div>  
     </div>
-         </div> 
-    
-    </body>
-</html>
-
-
 <!--
- <form action="/signup"  method="post">
+ <h1>Log in</h1>
+ <form action="/login"  method="post">
   <div class="container">
-    <label><b>First name</b></label>
-    <input type="text" placeholder="Enter first name" name="firstName" required>
-
-    <label><b>Last name</b></label>
-    <input type="text" placeholder="Enter last name" name="lastName" required>
-
-    <label><b>Email</b></label>
-    <input type="text" placeholder="Enter Email" name="email" required>
-
     <label><b>Username</b></label>
-    <input type="username" placeholder="Enter Username" name="username" required>
+    <input type="text" placeholder="Enter Username" name="identifier" required>
 
     <label><b>Password</b></label>
     <input type="password" placeholder="Enter Password" name="password" required>
@@ -150,5 +142,10 @@
       <button type="button"  class="cancelbtn">Cancel</button>
       <button type="submit" class="signupbtn">Sign Up</button>
     </div>
+    <p><%= err %></p>
   </div>
-</form> -->
+</form>
+-->
+    
+    <!-- 
+onClick="$('#loginbox').hide(); $('#signupbox').show()"> -->
