@@ -91,6 +91,7 @@ app.post('/signup', function(req, res, next){
             // Ensures server works without coinbase API
             if(!account){
                 account = {id:''}// Create a new user based on submitted form details
+                console.log("App: Account could not be created")
             }
             // Create a new user based on submitted form details
             var newUser = User({
