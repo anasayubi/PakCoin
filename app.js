@@ -41,7 +41,7 @@ app.get('/signup',function(req, res, next){
     if(req.session.user)
         res.redirect('/')
     else
-        res.render('signup')
+        res.render('signup', {err: null})
 })
 // Note: Must be removed in production. Login will occur from index page
 app.get('/login',function(req, res, next){
