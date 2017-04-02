@@ -7,7 +7,9 @@ var User = require("./models/user")
 // Import Admin model
 var Admin = require("./models/admin")
 // Import coinbase client
-var client = require("./coinbase") 
+var client = require("./coinbase")
+// Import error object to message translator
+var translateError = require('./helperFiles/translateError')
 
 // Initialise application
 var port = 3000
@@ -104,8 +106,15 @@ app.post('/signup', function(req, res, next){
             })
             // Save the new input user. If err occurs then pass to error handling middleware
             newUser.save(function(err, user, numAffected){
-                if(err) // GOTO: must return error (not to signup.ejs but to index through AJAX)
-                    next(err)
+                if(err) {
+                    // Print out the error to console
+                    console.log('\x1b[31m', 'App: ')
+                    console.log('\x1b[31m', err)
+                    // Convert the error object into a meaningful user-oriented messaged
+                    errorMessage = translateError(err)
+                    // Render signup.ejs with an error notification
+                    res.render('signup', {err: errorMessage})
+                }
                 else{
                     // GOTO: must go to profile page 
                     req.session.user = req.body
