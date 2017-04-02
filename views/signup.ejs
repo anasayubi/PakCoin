@@ -1,19 +1,138 @@
-<!-- When signing up the user MUST provide a first name, last name, username, email and a password to POST '/signup' method. An error page will be opened in case all 5 are not given -->
+<!-- When signing up the user MUST provide a either a username or email and a password to POST '/login' method. An error page will be opened in case all 2 are not given -->
+<!-- error passed back in variable 'err' -->
 
- <h1>Sign Up</h1>
- <form action="/signup"  method="post">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="PakCoin - A light weight bitcoin app.">
+    <meta name="author" content="AnasAyubi">
+
+    <title>Log In</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+
+    <!-- Plugin CSS -->
+    <link href="vendor/magnific-popup/magnific-popup.css" rel="stylesheet">
+
+    <!-- Theme CSS -->
+    <link href="css/cryptowallet.min.css" rel="stylesheet">
+    <!-- Google Font Slabo -->
+    <link href="https://fonts.googleapis.com/css?family=Slabo+27px" rel="stylesheet">
+    
+    
+    <!-- jQuery -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+    <script src="vendor/scrollreveal/scrollreveal.min.js"></script>
+    <script src="vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+
+    <!-- Theme JavaScript -->
+    <script src="js/cryptowallet.min.js"></script>
+
+</head>
+
+
+
+<div class="container">    
+        <div id="loginbox" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">                    
+            <div class="panel panel-info" >
+                    <div class="panel-heading">
+                        <div class="panel-title">Sign Up</div>
+                        <!-- <div style="float:right; font-size: 80%; position: relative; top:-10px"><a href="#">Forgot password?</a></div> -->
+
+                    </div>     
+
+                    <div style="padding-top:30px" class="panel-body" >
+
+                        <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
+                            
+                             
+                        <form id="signupform" method="post" action="\signup" class="form-horizontal" role="form">
+                                
+                                <div id="signupalert" style="display:none" class="alert alert-danger">
+                                    <p>Error:</p>
+                                    <span></span>
+                                </div>
+                                    
+                                
+                                  
+                                <div class="form-group">
+                                    <label for="email" class="col-md-3 control-label">Email:</label>
+                                    <div class="col-md-9">
+                                        <input type="email" class="form-control" name="email" placeholder="Email Address" required>
+                                    </div>
+                                </div>
+                                    
+                                <div class="form-group">
+                                    <label for="firstname" class="col-md-3 control-label">First Name:</label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" name="firstname" placeholder="First Name" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="lastname" class="col-md-3 control-label">Last Name:</label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" name="lastname" placeholder="Last Name" required>
+                                    </div>
+                                </div>
+                                 
+                                 <div class="form-group">
+                                    <label for="username" class="col-md-3 control-label">Username:</label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" name="username" placeholder="Username" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="password" class="col-md-3 control-label">Password:</label>
+                                    <div class="col-md-9">
+                                        <input type="password" class="form-control" name="password" placeholder="Password" required>
+                                    </div>
+                                </div>
+                                   
+                                
+                                
+                                <div class="form-group">
+                                    <!-- Button -->                                        
+                                    <div class="col-md-offset-3 col-md-9">
+                                        <button id="btn-signup" type="submit" class="btn btn-success"><i class="icon-hand-right"></i> &nbsp; Sign Up</button>
+                                    </div>
+                                </div>
+                                 <div class="form-group">
+                                    <!-- Button -->                                        
+                                    <div class="col-md-offset-3 col-md-9">
+                                        <a href="/">     <button id="btn-signup" type="button" class="btn btn-success"><i class="icon-hand-right"></i> &nbsp; Back to Site</button> </a>
+                                    </div>
+                                </div>
+                                
+                                
+                                
+                                
+                                
+                            </form>
+
+
+                        </div>                     
+                    </div>  
+    </div>
+<!--
+ <h1>Log in</h1>
+ <form action="/login"  method="post">
   <div class="container">
-    <label><b>First name</b></label>
-    <input type="text" placeholder="Enter first name" name="firstName" required>
-
-    <label><b>Last name</b></label>
-    <input type="text" placeholder="Enter last name" name="lastName" required>
-
-    <label><b>Email</b></label>
-    <input type="text" placeholder="Enter Email" name="email" required>
-
     <label><b>Username</b></label>
-    <input type="username" placeholder="Enter Username" name="username" required>
+    <input type="text" placeholder="Enter Username" name="identifier" required>
 
     <label><b>Password</b></label>
     <input type="password" placeholder="Enter Password" name="password" required>
@@ -22,5 +141,10 @@
       <button type="button"  class="cancelbtn">Cancel</button>
       <button type="submit" class="signupbtn">Sign Up</button>
     </div>
+    <p><%= err %></p>
   </div>
 </form>
+-->
+    
+    <!-- 
+onClick="$('#loginbox').hide(); $('#signupbox').show()"> -->
