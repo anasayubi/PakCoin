@@ -87,9 +87,11 @@ app.post('/signup', function(req, res, next){
     else{
         // Create a new account on coinbase
         client.createAccount({name: req.body.username.toLowerCase()}, function(err, account) {
-            // console.log(account)
-            // console.log(account.id)
-            // console.log(typeof(req.body.password))
+            // If account null (coinbase API does not work) then make account.id = ""
+            // Ensures server works without coinbase API
+            if(!account){
+                account = {id:''}// Create a new user based on submitted form details
+            }
             // Create a new user based on submitted form details
             var newUser = User({
                 firstName: req.body.firstName,
