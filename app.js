@@ -75,6 +75,14 @@ app.get('/admin', function(req, res, next){
     // If a user in session then redirect to '/' (routes to profile page)
     if(req.session.user)
         res.redirect('/')
+    // If admin is in session then show admin profile page
+    else if(req.session.admin)
+        Admin.findOne({username: req.body.identifier, password: req.body.password}, function(err, admin){
+            // Render admin profile page and show users
+            User.find(function(err, users){
+                res.render('admin', {users: users})
+            })
+        })
     // Open admin login page otherwise
     else
         res.render('adminLogIn', {err: null})
@@ -193,16 +201,21 @@ app.post('/login', function(req, res, next){
 })
 // Admin login form submission procedure
 app.post('/admin', function(req, res, next){
-    // If admin is in session then show admin profile
-    if(req.session.admin)
-        res.render('/adminProfile')
-    // Otherwise attempt login
-    else
-        Admin.findOne({username: req.body.identifier, password: req.body.password}, function(err, admin){
-            User.find(function(err, users){
+    // If admin found in DB then execute callback
+    Admin.findOne({username: req.body.identifier, password: req.body.password}, function(err, admin){
+        // If an admin is found then set admin session and show admin profile page
+        if(admin){  
+            // Set admin session
+            req.session.admin = {username: req.body.identifier, password: req.body.password}
+            // Render admin profile page and show users
+            User.find(function(err, users){ 
                 res.render('admin', {users: users})
             })
-        })
+        }
+        // If an admin is not found then show admin login page with an error message
+        else
+            res.render('adminLogIn', {err: 'Admin account not found'})
+    })
 })
 // Since request does not match any path then pass to error handling middleware
 app.use(function(req, res, next){
