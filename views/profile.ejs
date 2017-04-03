@@ -15,7 +15,10 @@
 <p>BTCtoPKR: <%= rates.BTCtoPKR %></p>
 <p>BTCtoUSD: <%= rates.BTCtoUSD %></p>
 <h3>From Coinbase API</h3>
-
+<% keys = Object.keys(coinData);  %>
+<% for(key in keys) { %>
+    <p><%= keys[key] %>: <%= coinData[keys[key]] %></p>
+<% } %>
 
 </body>
 </html>
