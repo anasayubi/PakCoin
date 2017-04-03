@@ -20,5 +20,14 @@
     <p><%= keys[key] %>: <%= coinData[keys[key]] %></p>
 <% } %>
 
+<h3>Send bitcoin</h3>
+ <form action="sendBitcoin" method="post">
+  Address to send to<br>
+  <input type="text" name="address"><br>
+  Send value<br>
+  <input type="number" name="value">
+    <button type="submit">Send!</button>
+</form>  
+
 </body>
 </html>
