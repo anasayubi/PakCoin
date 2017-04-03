@@ -37,6 +37,10 @@ app.get('/', function(req, res, next){
     // If user in session then show profile
     if(req.session.user)
         res.render('profile', {user: req.session.user})
+    // Redirect so that admin can login to admin profile
+    else if(req.session.admin){
+        res.redirect('admin')
+    }
     // Otherwise show index page
     else
         res.render('index')
@@ -45,6 +49,10 @@ app.get('/signup',function(req, res, next){
     // If user in session then redirect to '/'
     if(req.session.user)
         res.redirect('/')
+    // Redirect so that admin can login to admin profile
+    else if(req.session.admin){
+        res.redirect('admin')
+    }
     else
         res.render('signup', {err: null})
 })
@@ -52,6 +60,10 @@ app.get('/login',function(req, res, next){
     // If user in session then redirect to '/'
     if(req.session.user)
         res.redirect('/')
+    // Redirect so that admin can login to admin profile if admin is logged in
+    else if(req.session.admin){
+        res.redirect('admin')
+    }
     else
         res.render('login', {err: null})
 })
