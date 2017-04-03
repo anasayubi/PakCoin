@@ -222,10 +222,11 @@ app.post('/admin', function(req, res, next){
     if(req.session.admin)
         res.redirect('/admin')
     // If user in session then simply redirect to index page (user profile page)
-    else if(eq.session.user)
+    else if(req.session.user)
         res.redirect('/')
     // If admin found in DB then execute callback
-    Admin.findOne({username: req.body.identifier, password: req.body.password}, function(err, admin){
+    else{
+        Admin.findOne({username: req.body.identifier, password: req.body.password}, function(err, admin){
         // If an admin is found then set admin session and show admin profile page
         if(admin){  
             // Set admin session
@@ -237,8 +238,9 @@ app.post('/admin', function(req, res, next){
         }
         // If an admin is not found then show admin login page with an error message
         else
-            res.render('adminLogIn', {err: 'Admin account not found'})
+            res.render('adminLogIn', {err: 'Username or password incorrect'})
     })
+    }
 })
 // Since request does not match any path then pass to error handling middleware
 app.use(function(req, res, next){
