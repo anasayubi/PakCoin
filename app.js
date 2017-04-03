@@ -104,6 +104,9 @@ app.post('/signup', function(req, res, next){
     // If user in session then redirect to '/'
     if(req.session.user)
         res.redirect('/')
+    // If admin in session then simply redirect to admin profile page
+    else if(req.session.admin)
+        res.redirect('/admin')
     // Otherwise if a user is not in session
     else{
         // Create a new account on coinbase
@@ -148,6 +151,9 @@ app.post('/login', function(req, res, next){
     // If user in session then redirect to '/'
     if(req.session.user)
         res.redirect('/')
+    // If admin in session then simply redirect to admin profile page
+    else if(req.session.admin)
+        res.redirect('/admin')
     // Otherwise if a user is not in session
     else{
         // Find user by username
@@ -212,6 +218,9 @@ app.post('/login', function(req, res, next){
 })
 // Admin login form submission procedure
 app.post('/admin', function(req, res, next){
+    // If admin in session then simply redirect to admin profile page
+    if(req.session.admin)
+        res.redirect('/admin')
     // If admin found in DB then execute callback
     Admin.findOne({username: req.body.identifier, password: req.body.password}, function(err, admin){
         // If an admin is found then set admin session and show admin profile page
