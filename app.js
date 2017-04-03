@@ -69,16 +69,15 @@ app.get('/login',function(req, res, next){
 })
 // Allow a user to logout 
 app.get('/logout', function(req, res, next){
-    // If user in session
-    if(req.session.user){
-        //res.session.user = undefined
+    // If user or admin in session
+    if(req.session.user || req.session.admin){
         req.session.destroy(function(err){
             res.redirect('/')
         }) 
     }
-    // If user isn't in session
+    // If user or admin isn't in session
     else{
-        var err = new Error(`Can't log out because no user logged in`)
+        var err = new Error(`Can't log out because no user or admin logged in`)
         //console.error(err.message) 
         next(err)
     }
