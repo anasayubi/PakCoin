@@ -221,6 +221,9 @@ app.post('/admin', function(req, res, next){
     // If admin in session then simply redirect to admin profile page
     if(req.session.admin)
         res.redirect('/admin')
+    // If user in session then simply redirect to index page (user profile page)
+    else if(eq.session.user)
+        res.redirect('/')
     // If admin found in DB then execute callback
     Admin.findOne({username: req.body.identifier, password: req.body.password}, function(err, admin){
         // If an admin is found then set admin session and show admin profile page
