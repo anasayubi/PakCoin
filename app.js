@@ -38,10 +38,16 @@ app.get('/', function(req, res, next){
     if(req.session.user){
         // Get exchange rates from coinbase API
         client.getExchangeRates({'currency': 'BTC'}, function(err, rates) {
-            // Store exchange rates
-            rates = {'BTCtoPKR': rates.data.rates.PKR, 'BTCtoUSD': rates.data.rates.USD} 
-            // Render the user profile with all data
-            res.render('profile', {user: req.session.user, rates: rates})
+            // Get account details from coinbase API
+            client.getAccount(req.session.user.coinbaseid, function(err, account) {
+                // delete client data from the account as the information is redundent
+                //  'account.client' contains transmision based info which is not needed
+                delete account.client
+                // Store exchange rates
+                rates = {'BTCtoPKR': rates.data.rates.PKR, 'BTCtoUSD': rates.data.rates.USD} 
+                // Render the user profile with all data
+                res.render('profile', {user: req.session.user, rates: rates, coinData: account})
+            })
         })
     }
     // Redirect so that admin can login to admin profile
