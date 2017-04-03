@@ -7,7 +7,9 @@ var User = require("./models/user")
 // Import Admin model
 var Admin = require("./models/admin")
 // Import coinbase client
-var client = require("./coinbase") 
+var client = require("./coinbase")
+// Import error object to message translator
+var translateError = require('./helperFiles/translateError')
 
 // Initialise application
 var port = 3000
@@ -33,8 +35,19 @@ app.use(express.static(staticPath))
 // Initialise routing
 app.get('/', function(req, res, next){
     // If user in session then show profile
-    if(req.session.user)
-        res.render('profile', {user: req.session.user})
+    if(req.session.user){
+        // Get exchange rates from coinbase API
+        client.getExchangeRates({'currency': 'BTC'}, function(err, rates) {
+            // Store exchange rates
+            rates = {'BTCtoPKR': rates.data.rates.PKR, 'BTCtoUSD': rates.data.rates.USD} 
+            // Render the user profile with all data
+            res.render('profile', {user: req.session.user, rates: rates})
+        })
+    }
+    // Redirect so that admin can login to admin profile
+    else if(req.session.admin){
+        res.redirect('admin')
+    }
     // Otherwise show index page
     else
         res.render('index')
@@ -43,6 +56,10 @@ app.get('/signup',function(req, res, next){
     // If user in session then redirect to '/'
     if(req.session.user)
         res.redirect('/')
+    // Redirect so that admin can login to admin profile
+    else if(req.session.admin){
+        res.redirect('admin')
+    }
     else
         res.render('signup', {err: null})
 })
@@ -50,21 +67,24 @@ app.get('/login',function(req, res, next){
     // If user in session then redirect to '/'
     if(req.session.user)
         res.redirect('/')
+    // Redirect so that admin can login to admin profile if admin is logged in
+    else if(req.session.admin){
+        res.redirect('admin')
+    }
     else
         res.render('login', {err: null})
 })
 // Allow a user to logout 
 app.get('/logout', function(req, res, next){
-    // If user in session
-    if(req.session.user){
-        //res.session.user = undefined
+    // If user or admin in session
+    if(req.session.user || req.session.admin){
         req.session.destroy(function(err){
             res.redirect('/')
         }) 
     }
-    // If user isn't in session
+    // If user or admin isn't in session
     else{
-        var err = new Error(`Can't log out because no user logged in`)
+        var err = new Error(`Can't log out because no user or admin logged in`)
         //console.error(err.message) 
         next(err)
     }
@@ -73,6 +93,14 @@ app.get('/admin', function(req, res, next){
     // If a user in session then redirect to '/' (routes to profile page)
     if(req.session.user)
         res.redirect('/')
+    // If admin is in session then show admin profile page
+    else if(req.session.admin)
+        Admin.findOne({username: req.body.identifier, password: req.body.password}, function(err, admin){
+            // Render admin profile page and show users
+            User.find(function(err, users){
+                res.render('admin', {users: users})
+            })
+        })
     // Open admin login page otherwise
     else
         res.render('adminLogIn', {err: null})
@@ -83,13 +111,19 @@ app.post('/signup', function(req, res, next){
     // If user in session then redirect to '/'
     if(req.session.user)
         res.redirect('/')
+    // If admin in session then simply redirect to admin profile page
+    else if(req.session.admin)
+        res.redirect('/admin')
     // Otherwise if a user is not in session
     else{
         // Create a new account on coinbase
         client.createAccount({name: req.body.username.toLowerCase()}, function(err, account) {
-            // console.log(account)
-            // console.log(account.id)
-            // console.log(typeof(req.body.password))
+            // If account null (coinbase API does not work) then make account.id = ""
+            // Ensures server works without coinbase API
+            if(!account){
+                account = {id:''}// Create a new user based on submitted form details
+                console.log("App: Account could not be created")
+            }
             // Create a new user based on submitted form details
             var newUser = User({
                 firstName: req.body.firstName,
@@ -101,8 +135,15 @@ app.post('/signup', function(req, res, next){
             })
             // Save the new input user. If err occurs then pass to error handling middleware
             newUser.save(function(err, user, numAffected){
-                if(err) // GOTO: must return error (not to signup.ejs but to index through AJAX)
-                    next(err)
+                if(err) {
+                    // Print out the error to console
+                    console.log('\x1b[31m', 'App: ')
+                    console.log('\x1b[31m', err)
+                    // Convert the error object into a meaningful user-oriented messaged
+                    errorMessage = translateError(err)
+                    // Render signup.ejs with an error notification
+                    res.render('signup', {err: errorMessage})
+                }
                 else{
                     // GOTO: must go to profile page 
                     req.session.user = req.body
@@ -117,6 +158,9 @@ app.post('/login', function(req, res, next){
     // If user in session then redirect to '/'
     if(req.session.user)
         res.redirect('/')
+    // If admin in session then simply redirect to admin profile page
+    else if(req.session.admin)
+        res.redirect('/admin')
     // Otherwise if a user is not in session
     else{
         // Find user by username
@@ -181,12 +225,28 @@ app.post('/login', function(req, res, next){
 })
 // Admin login form submission procedure
 app.post('/admin', function(req, res, next){
-    // If admin is in session then show admin profile
+    // If admin in session then simply redirect to admin profile page
     if(req.session.admin)
-        res.render('/adminProfile')
-    // Otherwise attempt login
+        res.redirect('/admin')
+    // If user in session then simply redirect to index page (user profile page)
+    else if(req.session.user)
+        res.redirect('/')
+    // If admin found in DB then execute callback
     else{
-        Admin.findOne({username: req.body.identifier, password: req.body.password})
+        Admin.findOne({username: req.body.identifier, password: req.body.password}, function(err, admin){
+            // If an admin is found then set admin session and show admin profile page
+            if(admin){  
+                // Set admin session
+                req.session.admin = {username: req.body.identifier, password: req.body.password}
+                // Render admin profile page and show users
+                User.find(function(err, users){ 
+                    res.render('admin', {users: users})
+                })
+            }
+            // If an admin is not found then show admin login page with an error message
+            else
+                res.render('adminLogIn', {err: 'Username or password incorrect'})
+        })
     }
 })
 // Since request does not match any path then pass to error handling middleware

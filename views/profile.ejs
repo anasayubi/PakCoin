@@ -6,11 +6,16 @@
 <body>
 
 <h1>User Profile</h1>
-<!-- prints out email -->
-<p><%= user.email %></p>
-<!-- prints out username -->
-<p><%= user.username %></p>
-<p><a href='/logout'>logout</a></p>
+<h3>In DB</h3>
+<% keys = Object.keys(user);  %>
+<% for(key in keys) { %>
+    <p><%= keys[key] %>: <%= user[keys[key]] %></p>
+<% } %>
+<h3>Rates</h3>
+<p>BTCtoPKR: <%= rates.BTCtoPKR %></p>
+<p>BTCtoUSD: <%= rates.BTCtoUSD %></p>
+<h3>From Coinbase API</h3>
+
 
 </body>
 </html>

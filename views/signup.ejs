@@ -9,7 +9,7 @@
     <meta name="description" content="PakCoin - A light weight bitcoin app.">
     <meta name="author" content="AnasAyubi">
 
-    <title>Log In</title>
+    <title>Sign Up</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -62,10 +62,12 @@
                              
                         <form id="signupform" method="post" action="\signup" class="form-horizontal" role="form">
                                 
-                                <div id="signupalert" style="display:none" class="alert alert-danger">
-                                    <p>Error:</p>
+                                <% if(err !== null) {%>
+                                <div id="signupalert" class="alert alert-danger">
+                                    <p><%= err %></p>
                                     <span></span>
                                 </div>
+                                <% } %>
                                     
                                 
                                   
@@ -79,13 +81,13 @@
                                 <div class="form-group">
                                     <label for="firstname" class="col-md-3 control-label">First Name:</label>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" name="firstname" placeholder="First Name" required>
+                                        <input type="text" class="form-control" name="firstName" placeholder="First Name" required>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="lastname" class="col-md-3 control-label">Last Name:</label>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" name="lastname" placeholder="Last Name" required>
+                                        <input type="text" class="form-control" name="lastName" placeholder="Last Name" required>
                                     </div>
                                 </div>
                                  
@@ -116,11 +118,6 @@
                                         <a href="/">     <button id="btn-signup" type="button" class="btn btn-success"><i class="icon-hand-right"></i> &nbsp; Back to Site</button> </a>
                                     </div>
                                 </div>
-                                
-                                
-                                
-                                
-                                
                             </form>
 
 
