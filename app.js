@@ -35,8 +35,15 @@ app.use(express.static(staticPath))
 // Initialise routing
 app.get('/', function(req, res, next){
     // If user in session then show profile
-    if(req.session.user)
-        res.render('profile', {user: req.session.user})
+    if(req.session.user){
+        // Get exchange rates from coinbase API
+        client.getExchangeRates({'currency': 'BTC'}, function(err, rates) {
+            // Store exchange rates
+            rates = {'BTCtoPKR': rates.data.rates.PKR, 'BTCtoUSD': rates.data.rates.USD} 
+            // Render the user profile with all data
+            res.render('profile', {user: req.session.user, rates: rates})
+        })
+    }
     // Redirect so that admin can login to admin profile
     else if(req.session.admin){
         res.redirect('admin')
