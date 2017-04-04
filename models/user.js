@@ -25,7 +25,9 @@ if(coinbaseStrict){
         createdAt: { type: Date, 'default': Date.now },
         // Coinbase ID that will be used to access user wallet
         // Each user will have his/her own ID
-        coinbaseid: {type: String, unique: true, required: true}
+        coinbaseid: {type: String, unique: true, required: true},
+        // Current bitcoin public key holder for a user
+        publicKey: {type: String, unique: true, required: true}
     })
 }
 else{
@@ -46,7 +48,9 @@ else{
         createdAt: { type: Date, 'default': Date.now },
         // Coinbase ID that will be used to access user wallet
         // Each user will have his/her own ID
-        coinbaseid: String
+        coinbaseid: String,
+        // Bitcoin public key holder
+        publicKey: String
     })
 }
 
