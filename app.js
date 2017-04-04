@@ -268,7 +268,8 @@ app.post('/sendbtc', function(req, res, next){
         //console.log('in')
         console.log(req.body)
         // Check if the bitcoin address is valid
-        if(!bitcoinAddress.validate(req.body.addres)){
+        console.log(req.body.address)
+        if(!bitcoinAddress.validate(req.body.address)){
             // If not valid then set error message in session and redirect back to profile
             req.session.user.error_message = 'invalid bitcoin address'
             res.redirect('/')
@@ -277,17 +278,30 @@ app.post('/sendbtc', function(req, res, next){
         else{
             // Get account based on coinbase ID
             client.getAccount(req.session.user.coinbaseid, function(err, account) {
-            /*account.sendMoney({'to': req.body.address,
-                'amount': req.body.btcval,
-                'currency': 'BTC'}, function(err, tx) {console.log(tx)})*/
+                account.sendMoney({'to': req.body.address,
+                                   'amount': req.body.btcval,
+                                   'currency': 'BTC'},
+                function(err, tx) 
+                {
+                    // console.log(err);console.log(tx)
+                    // console.log('typeof: ' + typeof(err))
+                    // console.log('err.name' + err.name)
+                    // console.log('err.message' + err.message)
+                    // Check if error is present and if 'err' is a Validation error
+                    if(err && err.name === 'ValidationError'){
+                        req.session.user.error_message = err.message
+                        res.redirect('/')
+                    }
+                    else{
+                        console.log('Some other sort of error occured')
+                    }
+                })
             })
-            res.redirect('/')
         }
     }
-    else{
+    else
         // Moves on to the app.use which starts an error
         next()
-    }
 })
 // Since request does not match any path then pass to error handling middleware
 app.use(function(req, res, next){
