@@ -130,7 +130,7 @@ app.post('/signup', function(req, res, next){
                 account = {id:''}// Create a new user based on submitted form details
                 console.log("App: Account could not be created")
             }
-            console.log('going to create an account now')
+            // console.log('going to create an account now')
             // Create a public key address
             account.createAddress(null, function(err, addr) {
                 console.log('addr: ' + addr)
@@ -156,8 +156,8 @@ app.post('/signup', function(req, res, next){
                         res.render('signup', {err: errorMessage})
                     }
                     else{
-                        // GOTO: must go to profile page 
-                        req.session.user = req.body
+                        // Store all the DB user details in session for duration of session
+                        req.session.user = user
                         res.redirect('/')
                     }
                 })
