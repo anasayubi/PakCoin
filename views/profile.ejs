@@ -14,10 +14,21 @@
 <h3>Rates</h3>
 <p>BTCtoPKR: <%= rates.BTCtoPKR %></p>
 <p>BTCtoUSD: <%= rates.BTCtoUSD %></p>
+
 <h3>From Coinbase API</h3>
 <% keys = Object.keys(coinData);  %>
 <% for(key in keys) { %>
     <p><%= keys[key] %>: <%= coinData[keys[key]] %></p>
+<% } %>
+<h4>Coinbase balance</h4>
+<% keys = Object.keys(coinData.balance);  %>
+<% for(key in keys) { %>
+    <p><%= keys[key] %>: <%= coinData.balance[keys[key]] %></p>
+<% } %>
+<h4>Coinbase native_balance</h4>
+<% keys = Object.keys(coinData.native_balance);  %>
+<% for(key in keys) { %>
+    <p><%= keys[key] %>: <%= coinData.native_balance[keys[key]] %></p>
 <% } %>
 
 <h3>Send bitcoin</h3>
