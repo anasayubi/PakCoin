@@ -130,31 +130,37 @@ app.post('/signup', function(req, res, next){
                 account = {id:''}// Create a new user based on submitted form details
                 console.log("App: Account could not be created")
             }
-            // Create a new user based on submitted form details
-            var newUser = User({
-                firstName: req.body.firstName,
-                lastName: req.body.lastName,
-                username: req.body.username.toLowerCase(),
-                email: req.body.email.toLowerCase(),
-                password: req.body.password,
-                coinbaseid: account.id 
-            })
-            // Save the new input user. If err occurs then pass to error handling middleware
-            newUser.save(function(err, user, numAffected){
-                if(err) {
-                    // Print out the error to console
-                    console.log('\x1b[31m', 'App: ')
-                    console.log('\x1b[31m', err)
-                    // Convert the error object into a meaningful user-oriented messaged
-                    errorMessage = translateError(err)
-                    // Render signup.ejs with an error notification
-                    res.render('signup', {err: errorMessage})
-                }
-                else{
-                    // GOTO: must go to profile page 
-                    req.session.user = req.body
-                    res.redirect('/')
-                }
+            console.log('going to create an account now')
+            // Create a public key address
+            account.createAddress(null, function(err, addr) {
+                console.log('addr: ' + addr)
+                // Create a new user based on submitted form details and public key generated
+                var newUser = User({
+                    firstName: req.body.firstName,
+                    lastName: req.body.lastName,
+                    username: req.body.username.toLowerCase(),
+                    email: req.body.email.toLowerCase(), 
+                    password: req.body.password,
+                    coinbaseid: account.id,
+                    publicKey: addr
+                })
+                // Save the new input user. If err occurs then pass to error handling middleware
+                newUser.save(function(err, user, numAffected){
+                    if(err) {
+                        // Print out the error to console
+                        console.log('\x1b[31m', 'App: ')
+                        console.log('\x1b[31m', err)
+                        // Convert the error object into a meaningful user-oriented messaged
+                        errorMessage = translateError(err)
+                        // Render signup.ejs with an error notification
+                        res.render('signup', {err: errorMessage})
+                    }
+                    else{
+                        // GOTO: must go to profile page 
+                        req.session.user = req.body
+                        res.redirect('/')
+                    }
+                })
             })
         })
     } 
