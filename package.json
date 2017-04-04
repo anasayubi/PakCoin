@@ -6,6 +6,7 @@
   },
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
+    "bitcoin-address": "^0.3.0",
     "blockchain.info": "^2.6.0",
     "blocktrail-sdk": "^3.0.9",
     "body-parser": "^1.17.1",

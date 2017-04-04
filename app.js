@@ -2,6 +2,7 @@ var express = require('express')
 var path = require('path')
 var bodyParser = require('body-parser')
 var session = require('express-session')
+var bitcoinAddress = require('bitcoin-address')
 // Import User model
 var User = require("./models/user")
 // Import Admin model
@@ -266,14 +267,25 @@ app.post('/sendbtc', function(req, res, next){
     if(req.session.user){
         //console.log('in')
         console.log(req.body)
-        client.getAccount(req.session.user.coinbaseid, function(err, account) {
-            account.sendMoney({'to': req.body.address,
+        // Check if the bitcoin address is valid
+        if(!bitcoinAddress.validate(req.body.addres)){
+            // If not valid then set error message in session and redirect back to profile
+            req.session.user.error_message = 'invalid bitcoin address'
+            res.redirect('/')
+        }
+        // If the bitcoin address is valid then transact
+        else{
+            // Get account based on coinbase ID
+            client.getAccount(req.session.user.coinbaseid, function(err, account) {
+            /*account.sendMoney({'to': req.body.address,
                 'amount': req.body.btcval,
-                'currency': 'BTC'}, function(err, tx) {console.log(tx)})
-        })
-        res.redirect('/')
+                'currency': 'BTC'}, function(err, tx) {console.log(tx)})*/
+            })
+            res.redirect('/')
+        }
     }
     else{
+        // Moves on to the app.use which starts an error
         next()
     }
 })
