@@ -261,6 +261,22 @@ app.post('/admin', function(req, res, next){
         })
     }
 })
+// Send bitcoin from user account if user is logged in
+app.post('/sendbtc', function(req, res, next){
+    if(req.session.user){
+        //console.log('in')
+        console.log(req.body)
+        client.getAccount(req.session.user.coinbaseid, function(err, account) {
+            account.sendMoney({'to': req.body.address,
+                'amount': req.body.btcval,
+                'currency': 'BTC'}, function(err, tx) {console.log(tx)})
+        })
+        res.redirect('/')
+    }
+    else{
+        next()
+    }
+})
 // Since request does not match any path then pass to error handling middleware
 app.use(function(req, res, next){
     var err = new Error(`${req.path} does not match any path in application`)
