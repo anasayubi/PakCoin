@@ -130,10 +130,10 @@ app.post('/signup', function(req, res, next){
                 account = {id:''}// Create a new user based on submitted form details
                 console.log("App: Account could not be created")
             }
-            // console.log('going to create an account now')
+            // console.log('going to     create an account now')
             // Create a public key address
             account.createAddress(null, function(err, addr) {
-                console.log('addr: ' + addr)
+                // console.log('addr: ' + addr)
                 // Create a new user based on submitted form details and public key generated
                 var newUser = User({
                     firstName: req.body.firstName,
@@ -142,7 +142,7 @@ app.post('/signup', function(req, res, next){
                     email: req.body.email.toLowerCase(), 
                     password: req.body.password,
                     coinbaseid: account.id,
-                    publicKey: addr
+                    publicKey: addr.address
                 })
                 // Save the new input user. If err occurs then pass to error handling middleware
                 newUser.save(function(err, user, numAffected){
