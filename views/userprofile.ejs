@@ -1,0 +1,379 @@
+x<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Dashboard User Theme</title>
+
+    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="fonts/font-awesome/css/font-awesome.min.css" />
+
+   
+
+    <link rel="stylesheet" type="text/css" href="css/theme.css" />
+    <link rel="stylesheet" type="text/css" href="css/dashboard.css" />
+<link href='https://fonts.googleapis.com/css?family=Ubuntu:400,500,400italic,700,500italic' rel='stylesheet' type='text/css'>
+ <link href="http://fontawesome.io/assets/font-awesome/css/font-awesome.css" rel='styesheet'>
+<style>
+</style>
+
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+
+
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	<![endif]-->
+</head>
+<body>
+    <div id="wrapper">
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation">            
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    
+                </button>
+                <a class="navbar-brand" href="index.html" title="Dashboard"><i class="fa fa-bitcoin"></i> Wallet</a>
+            </div>
+           <div class="collapse navbar-collapse navbar-ex1-collapse">
+               <!-- <ul class="nav navbar-nav side-nav">
+                    <li class="active"><a href="index.html"><i class="glyphicon glyphicon-th"></i>User Statistics</a></li>
+                    <li class="nav nav-list nav-list-expandable nav-list-expanded">
+                        <a><i class="fa fa-exchange"></i> Transactions <span class="caret"></span></a>
+                        <ul class="nav navbar-nav">
+                            <li><a href="datagrid.html"><i class="fa fa-send-o"></i> Send Bitcoins</a></li>
+                            <li><a href="editor.html"><i class="fa fa-edit"></i> Recieve Bitcoins</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="bootstrap.html"><i class="fa fa-key"></i> Update Public Key </a></li>
+                    <li class="nav nav-list nav-list-expandable">
+                        <a><i class="fa fa-magic"></i> Exchange Rates <span class="caret"></span></a>
+                        <ul class="nav navbar-nav">
+                            <li><a href="#"><i class="fa fa-rupee"></i> BTC to PKR</a></li>
+                            <li><a href="#"><i class="fa fa-usd"></i> BTC to USD</a></li>
+                        </ul>
+                    <li>
+                </ul>   -->
+              <ul class="nav navbar-nav navbar-right navbar-user">
+                    <li class="dropdown messages-dropdown">
+                        <a href="  " class="dropdown-toggle" ><i class="fa fa-user"></i>USER.username</a>
+                        
+                    </li>
+                    <li class="dropdown user-dropdown">
+                       <a href="  " class="dropdown-toggle" ><i class="fa fa-power-off"></i>Log-out</a>
+                      
+                   </li>
+                </ul>
+            </div>
+        </nav>
+
+    <div id="page-wrapper">
+            <div class="row">
+                          
+          <div class="col-md-6">
+                            <div class="panel pull-left panel-success">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title"><i class="fa fa-drivers-license-o"></i> Send Bitcoins</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div id="chart_browsers" style="width:100%; height:200px;">
+
+
+                                                         <div class="panel-body text-center">
+<p> You Can Send your bitcoins to the ones you know. Just insert the Address of the known person and start sending your amount. </p>
+
+ <div>
+        <form class="form-horizontal" role="form">
+            <div class="form-group">
+              <label class="col-md-3" class="control-label">Address:</label>
+              <div class="col-md-9">
+         <input id="adr" name="sendadd" class="typeahead form-control" type="text" placeholder="Sender's Address" data-provide="typeahead"/>
+ 
+                       </div>
+               </div >
+            
+
+            <div class="form-group">
+              <label class="col-md-3" class="control-label">Amount:</label> 
+              <div class="col-md-9">
+             
+
+                <input id="amount" name="sendamnt" class="typeahead form-control" type="text" placeholder="Sending Amount in BTC" data-provide="typeahead"/>
+              </div>
+               </div >
+        
+        </form>
+        </div>
+<button class="btn  btn-info btn-md" data-toggle="modal" data-target=" " id="send">
+    <i class="fa fa-send-o"></i>
+  Send Bitcoins
+</button>
+
+
+
+                                    
+                                </div></div>
+
+                                    </div>
+                                </div>
+                            </div>
+                   
+
+            <!--        <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><i class="fa fa-line-chart"></i> Live Statistics <a class="pull-right glyphicon glyphicon-option-horizontal" href="#" style="text-decoration:none;"></a></h3>
+                        </div>
+                        <div class="panel-body">
+                            <div id="chart_live" style="width:100%; height:250px;"></div>
+                        </div>
+                    </div>
+                    <div class="panel">
+                        <div class="panel-body">
+                            <div class="col-md-3 col-sm-3 col-xs-3 text-center">
+                                <h4><span class="fa fa-eye"></span> Views</h4>
+                                <h3>1450</h3>
+                            </div>
+                            <div class="col-md-3 col-sm-3 col-xs-3 text-center">
+                                <h4><span class="fa fa-file-video-o"></span> Pages</h4>
+                                <h3>327</h3>
+                            </div>
+                            <div class="col-md-3 col-sm-3 col-xs-3 text-center">
+                                <h4><span class="fa fa-users"></span> Users</h4>
+                                <h3>119</h3>
+                            </div>
+                            <div class="col-md-3 col-sm-3 col-xs-3 text-center">
+                                <h4><span class="fa fa-money"></span> Earnings</h4>
+                                <h3>$14.58</h3>
+                            </div>
+                        </div>
+                    </div>   -->
+                                 
+                  
+                   <!--     <div class="col-md-6">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title"><i class="fa fa-send-o"></i> SEND BITCOINS</h3>
+                                </div>
+                              </div>
+                        </div> -->
+                    
+                        <div class="col-md-6">
+                            <div class="panel panel-danger">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title"><i class="fa fa-gear"></i> PROFILE</h3>
+                                </div>
+                                <div class="panel-body">
+								
+                                <ul class="list-group">
+  <li class="list-group-item">	<span class="label label-default">ID </span> <!-- anas display id here --></li>
+  <li class="list-group-item list-group-item-success"  ><label class="label label-success">First Name</label> <span aria-readonly="true" > </span>    </li>
+  <li class="list-group-item list-group-item-info">   <span class="label label-primary">Last Name</span> <span aria-readonly="true" > </span>               </li>
+  <li class="list-group-item list-group-item-warning"><span class="label label-info">Username</span>  <span aria-readonly="true" > </span>        </li>
+  <li class="list-group-item list-group-item-default"><span class="label label-warning">Email</span><span aria-readonly="true" > </span>       </li>
+  <li class="list-group-item list-group-item-primary"><span class="label label-danger">Password</span> <span aria-readonly="true" > </span>      </li>
+    <div class="form-group">
+                            <label >Current Bitcoin Worth</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-bitcoin"></i> </span>
+                                <input type="text" class="form-control" class="form-control-static" readonly value=" "  > </div></div>
+                            
+</ul>
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                <!--
+                                	<ul class="list-group">
+										<li class="list-group-item">
+											<span class="label label-default">ID</span>
+											<div class="pull-right">
+												<input id="switch1" name="_id" type="text" class="form-control-static"  />
+											</div>
+										</li>
+										<li class="list-group-item">
+											<span class="label label-success">First Name</span>
+											<div class="pull-right">
+												<input id="switch2" name="firstname" type="text" value="" class="form-control-static" />
+											</div>
+										</li>
+										<li class="list-group-item">
+											<span class="label label-primary">Last Name</span>
+											<div class="pull-right">
+												<input id="switch3" name="lastname" type="text" class="form-control-static"  />
+											</div>
+										</li>
+										<li class="list-group-item">
+											<span class="label label-info">Username</span>
+											
+												<input id="switch4" name="username" type="text" class="form-control-static" />
+										</li>
+										<li class="list-group-item">
+											<span class="label label-warning">Password</span>
+											<input id="switch5" name="password" type="text" class="form-control-static" />
+											
+										</li>
+										<li class="list-group-item">
+											<span class="label label-danger">Email</span>
+												<input id="switch6" name="email" type="text" class="form-control-static"  />
+										</li>
+                                        
+									</ul>
+                                      <div class="form-group">
+                            <label class="control-label">Current Bitcoin Worth</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-bitcoin"></i> </span>
+                                <input type="text" class="form-control" class="form-control-static">
+                            <!--    <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button">Button</button>
+                                </span> -->
+                            </div>
+                        </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+<!-- Modal --><!--
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        
+        <h4 class="modal-title" id="myModalLabel">Send Bitcoins</h4>
+      </div>
+      <div class="modal-body">
+        <div>
+        <form class="form-horizontal" role="form">
+            <div class="form-group">
+              <label class="col-md-3" class="control-label">Address:</label>
+              <div class="col-md-9">
+         <input id="adr" name="sendadd" class="typeahead form-control" type="text" placeholder="Sender's Address" data-provide="typeahead"/>
+  <!--<ul class="dropdown-menu" role="menu">
+    <li><a href="#">cc:</a></li>
+    <li><a href="#">bcc:</a></li>
+  </ul> --
+</div> 
+                
+
+              
+               </div >
+            
+
+            <div class="form-group">
+              <label class="col-md-3" class="control-label">Amount:</label> 
+              <div class="col-md-9">
+             
+
+                <input id="amount" name="sendamnt" class="typeahead form-control" type="text" placeholder="Sending Amount in BTC" data-provide="typeahead"/>
+              </div>
+               </div >
+        
+        </form>
+        </div></div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary">Send</button>
+      </div></div></div>
+</div> -->
+<div class="row">
+<div class="col-md-12">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><i class="fa fa-keyboard-o"></i> Exchange Rates</h3>
+                        </div>
+                        <div class="panel-body text-left">
+                      <div class="col-md-4">      <div  id="btc_to_usd">
+       <p> <h3>  1 BTC =  $   </h3> </p>
+
+
+                            </div><hr>
+                            <div id="btc_to_pkr">    <h3> 1 BTC  =  Rs  </h3> </div>
+                        </div>
+                        <div class="col-md-4">
+<p class="text-muted"  > Current Rates of Bitcoin in USD and PKR.</p></div>
+<div class="col-md-4"> <p>To Receive bitcoins just reload the page. </p> </div>
+                    </div>
+</div></div>
+                    
+            
+            <!-- /.row -->
+        </div>
+        <!-- /#page-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+
+    
+
+<!-- Button trigger modal -->
+<!--
+</div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary">Send</button>
+      </div>
+    </div>
+  </div>
+</div> -->
+<script>
+     $(function(){
+         $('#editor').wysiwyg();
+         $('#launch').click();
+     });
+</script>
+
+
+
+<!---    Update Public Key -->
+
+
+ <!--
+ <div class="col-md-3">
+                        </div>
+						<div class="col-md-6">
+							<!- START PANEL ->
+							<div class="panel panel-default" style="margin-top: 50px">
+								<div class="panel-heading ui-draggable-handle">
+									<h3 class="panel-title">TRANSACTION </h3>
+								</div>
+								<div class="panel-body" style="font-family: ubuntu">
+
+										<div class="block">
+											<form class="form-horizontal" role="form">
+												<div class="panel-body panel-body-pricing">
+													<h2>Updating Public Key</h2>
+													<hr>
+													<table style="width: 100%">
+														<tbody>
+                                                        <tr>
+        											    <h3>Please wait while we are changing your bitcoin public address.</h3>
+													    </tr>
+                                                        <tr>
+                                                        <br>
+                                                            <td width="30%"><img style="margin-left: 150px" src="https://d13yacurqjgara.cloudfront.net/users/82092/screenshots/1073359/spinner.gif" width="200" height="150"></td>
+                                                            
+														</tr>
+														</tbody>
+													</table>
+												</div>
+											</form>
+                                            <div style="text-align: center">
+										</div>
+                                        </div>  -->
+       <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript" src="http://www.shieldui.com/shared/components/latest/js/shieldui-all.min.js"></script>
+
+    <script type="text/javascript" src="js/theme.js"></script>
+
+</body>
+</html>
