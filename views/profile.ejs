@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Index.ejs</title>
+<title>User Profile</title>
 </head>
 <body>
 
@@ -15,7 +15,19 @@
 <p>BTCtoPKR: <%= rates.BTCtoPKR %></p>
 <p>BTCtoUSD: <%= rates.BTCtoUSD %></p>
 <h3>From Coinbase API</h3>
+<% keys = Object.keys(coinData);  %>
+<% for(key in keys) { %>
+    <p><%= keys[key] %>: <%= coinData[keys[key]] %></p>
+<% } %>
 
+<h3>Send bitcoin</h3>
+ <form action="sendBitcoin" method="post">
+  Address to send to<br>
+  <input type="text" name="address"><br>
+  Send value<br>
+  <input type="number" name="value">
+    <button type="submit">Send!</button>
+</form>  
 
 </body>
 </html>

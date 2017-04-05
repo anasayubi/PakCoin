@@ -22,7 +22,6 @@ if(coinbaseStrict){
         email: { type: String, required: true, unique: true, match: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/ },
         // RegExp picked up online. Must be at least 8 chars, have 1 alpha and 1 num char
         password: { type: String, required: true, match: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/ },
-        bitcoinVal: {type: Number, 'default': 0},
         createdAt: { type: Date, 'default': Date.now },
         // Coinbase ID that will be used to access user wallet
         // Each user will have his/her own ID
@@ -44,7 +43,6 @@ else{
         email: { type: String, required: true, unique: true, match: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/ },
         // RegExp picked up online. Must be at least 8 chars, have 1 alpha and 1 num char
         password: { type: String, required: true, match: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/ },
-        bitcoinVal: {type: Number, 'default': 0},
         createdAt: { type: Date, 'default': Date.now },
         // Coinbase ID that will be used to access user wallet
         // Each user will have his/her own ID
