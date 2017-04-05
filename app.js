@@ -51,8 +51,13 @@ app.get('/', function(req, res, next){
                 var error = req.session.user.error_message
                 // removing error message from session
                 req.session.user.error_message = null
+                // create var to hold the success while the success message is removed from session var
+                // removed so that success is shown only once
+                var success = req.session.user.success_message
+                // removing success message from session
+                req.session.user.success_message = null
                 // Render the user profile with all data
-                res.render('profile', {user: req.session.user, rates: rates, coinData: account, error: error})
+                res.render('profile', {user: req.session.user, rates: rates, coinData: account, error: error, success: success})
             })
         })
     }
@@ -288,7 +293,7 @@ app.post('/sendbtc', function(req, res, next){
                                    'currency': 'BTC'},
                 function(err, tx) 
                 {
-                    // console.log(err);console.log(tx)
+                    console.log(err); console.log(tx)
                     // console.log('typeof: ' + typeof(err))
                     // console.log('err.name' + err.name)
                     // console.log('err.message' + err.message)
@@ -297,8 +302,14 @@ app.post('/sendbtc', function(req, res, next){
                         req.session.user.error_message = err.message
                         res.redirect('/')
                     }
-                    else{
+                    else if(err){
                         console.log('Some other sort of error occured')
+                    }
+                    else{
+                        console.log('transaction occured: ')
+                        console.log(tx)
+                        req.session.user.success_message = 'Success! You can view your transaction details here: ' + tx.id
+                        res.redirect('/')
                     }
                 })
             })
