@@ -36,7 +36,7 @@ app.use(express.static(staticPath))
 // Initialise routing
 app.get('/', function(req, res, next){
     // If user in session then show profile
-    if(req.session.user){
+    if(req.session.user){ 
         // Get exchange rates from coinbase API
         client.getExchangeRates({'currency': 'BTC'}, function(err, rates) {
             // Get account details from coinbase API
@@ -46,8 +46,13 @@ app.get('/', function(req, res, next){
                 delete account.client
                 // Store exchange rates
                 rates = {'BTCtoPKR': rates.data.rates.PKR, 'BTCtoUSD': rates.data.rates.USD} 
+                // create var to hold the error while the error message is removed from session var
+                // removed so that error is shown only once
+                var error = req.session.user.error_message
+                // removing error message from session
+                req.session.user.error_message = null
                 // Render the user profile with all data
-                res.render('profile', {user: req.session.user, rates: rates, coinData: account})
+                res.render('profile', {user: req.session.user, rates: rates, coinData: account, error: error})
             })
         })
     }

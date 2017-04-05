@@ -37,8 +37,8 @@
 <h3>Send bitcoin</h3>
  <form action="sendbtc" method="post">
   <!-- Check for possible error messages from backend -->
-  <% if(user.error_message !== null) { %>
-  <p style='color: red'><%= user.error_message %></p>
+  <% if(error !== null) { %>
+  <p style='color: red'><%= error %></p>
   <% } %>
   Address to send to<br>
   <input type="text" name="address" required><br>
