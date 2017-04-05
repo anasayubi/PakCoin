@@ -10,21 +10,31 @@ It is recommended that [NVM](https://github.com/creationix/nvm) is used when ins
 2. `nvm use`
 
 Otherwise simply install from [nodejs.org](https://nodejs.org/en/download/).  
+
 To run **PakCoin** follow these instructions:
-1. Make a [coinbase](https://www.coinbase.com/?locale=en) account and note down API key and API secret key
-2. Open the `coinbase.js` from root of project and store API key and API secret key as string values
-3. Run `npm install` in project root
-4. Start MongoDB with `sudo service mongod start`
-5. Run the web server with `npm start`
+1. Start MongoDB with `sudo service mongod start` in terminal
+2. Run `mongo` to open the mongo shell
+3. Run `use Pakcoin` in `mongo` shell to create a database with the name `PakCoin`
+4. Run `db.admins.insert({admin: 'admin', password: '12345'})` in `mongo` shell to create an administrator profile with username `'admin'` and password `'12345'`   
+**Note**: all identifiers are case sensative
+5. Make a [coinbase](https://www.coinbase.com/?locale=en) account and create an API key 
+6. Note down the API key and API secret key when presented on the coinbase website
+7. Open the `coinbase.js` from root of project and store API key and API secret key as string values
+8. Run `npm install` in terminal in project root to install all the project dependencies
+9. Run `npm start` in terminal to start the web server
 
 Congratulations! Your web app is now running at `localhost:3000`. To access PakCoin open your browser to the URL   [`http://localhost:3000/`](http://localhost:3000/)
 
 ## URLs
 ### `GET`
-* `/` - index page **or** user wallet page if in session **or** admin page if in session
+* `/` - index page **or** user wallet page if user in session
+* `/admin` - log in for admin **or** admin profile page if admin in session
 * `/signup` - opens signup page for a user
 * `/login` - opens login page for a user
 * `/logout` - logs out a current session
 ### `POST`
 * `/signup` - attempt to log in as an existing user
 * `/login` - attempt to sign up a new user
+* `/sendbtc` - send btc **if** a user in session  
+
+Any other URL for a corresponding HTTP method will land on an error page
