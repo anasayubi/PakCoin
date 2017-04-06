@@ -90,6 +90,11 @@
  <div>
         <form action='sendbtc' method='post' class="form-horizontal" role="form">
             <div class="form-group">
+            <% if(error !== null) { %>
+            <p style='color: red'><%= error %></p>
+            <% } else if( success !== null) { %>
+            <p style='color: green'><%= success %></p>
+            <% } %>
               <label class="col-md-3" class="control-label">Address:</label>
               <div class="col-md-9">
          <input id="adr" name="address" class="typeahead form-control" type="text" placeholder="Sender's Address" data-provide="typeahead" required />
@@ -182,7 +187,15 @@
                             <label >Current Bitcoin Worth</label>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-bitcoin"></i> </span>
-                                <input type="text" class="form-control" class="form-control-static" readonly value=" "  > </div></div>
+                                <input type="text" class="form-control" class="form-control-static" readonly value="<%= coinData.balance.amount %>" > </div>
+                                 <div class="input-group">
+                                <span class="input-group-addon">Rs</span>
+                                <input type="text" class="form-control" class="form-control-static" readonly value="<%= coinData.balance.amount * rates.BTCtoPKR %>" > </div>
+                                <div class="input-group">
+                                <span class="input-group-addon">$</span>
+                                <input type="text" class="form-control" class="form-control-static" readonly value="<%= coinData.balance.amount * rates.BTCtoUSD %>" > </div>
+                                
+                                </div>
                             
 </ul>
                                 
@@ -255,6 +268,7 @@
       <div class="modal-body">
         <div>
         <form class="form-horizontal" role="form">
+            
             <div class="form-group">
               <label class="col-md-3" class="control-label">Address:</label>
               <div class="col-md-9">
