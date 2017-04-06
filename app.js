@@ -57,6 +57,12 @@ app.get('/', function(req, res, next){
                 // removing success message from session
                 req.session.user.success_message = null
                 // Render the user profile with all data
+                console.log(req.session.user)
+                console.log(account)
+                console.log('error: ')
+                console.log(error)
+                console.log('success: ')
+                console.log(success)
                 res.render('profile', {user: req.session.user, rates: rates, coinData: account, error: error, success: success})
             })
         })
@@ -275,6 +281,7 @@ app.post('/admin', function(req, res, next){
 // Send bitcoin from user account if user is logged in
 app.post('/sendbtc', function(req, res, next){
     if(req.session.user){
+        console.log('in send BTC')
         //console.log('in')
         console.log(req.body)
         // Check if the bitcoin address is valid
